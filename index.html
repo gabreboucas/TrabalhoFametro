@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAMETRO - Cursos de Engenharia</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #dc2626;
+            --gradient: linear-gradient(90deg, #1e3a8a 0%, #dc2626 100%);
+            --light-bg: #f3f4f6;
+            --dark-text: #1f2937;
+            --light-text: #f9fafb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: var(--dark-text);
+        }
+        
+        header {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        
+        .course-tabs {
+            display: flex;
+            overflow-x: auto;
+            margin: 1rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .course-tab {
+            padding: 0.75rem 1.5rem;
+            margin-right: 0.5rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            font-weight: 500;
+            color: var(--dark-text);
+            border-radius: 4px 4px 0 0;
+            transition: all 0.2s;
+        }
+        
+        .course-tab.active {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+        
+        .course-content {
+            padding: 2rem;
+            margin: 1rem 2rem;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .course-title {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .course-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .course-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .highlight-card {
+            background-color: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            margin: 2rem 0 1rem 2rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .feed-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 0 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .feed-item {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+        
+        .feed-item:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feed-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: #e5e7eb;
+        }
+        
+        .feed-content {
+            padding: 1rem;
+        }
+        
+        .feed-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .outdoor-banner {
+            background: var(--gradient);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 2rem 0;
+        }
+        
+        .outdoor-banner h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .outdoor-banner p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            background-color: white;
+            color: var(--primary-color);
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+        
+        .btn:hover {
+            background-color: var(--light-bg);
+            transform: translateY(-2px);
+        }
+        
+        .forum-section {
+            background-color: white;
+            padding: 2rem;
+            margin: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .forum-preview {
+            margin-top: 1.5rem;
+        }
+        
+        .forum-topic {
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .forum-topic:last-child {
+            border-bottom: none;
+        }
+        
+        .events-section {
+            padding: 0 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .event-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .event-image {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background-color: #e5e7eb;
+        }
+        
+        .event-content {
+            padding: 1.5rem;
+        }
+        
+        .event-content h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .event-date {
+            color: var(--secondary-color);
+            font-weight: 500;
+            margin-bottom: 0.75rem;
+        }
+        
+        .feedback-section {
+            background-color: var(--light-bg);
+            padding: 2rem;
+            margin: 2rem;
+            border-radius: 8px;
+        }
+        
+        .feedback-form {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .course-highlights {
+                grid-template-columns: 1fr;
+            }
+            
+            .feed-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .events-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">FAMETRO</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="cursos.html">Cursos</a></li>
+                <li><a href="eventos.html">Eventos</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="course-tabs">
+        <button class="course-tab active" onclick="showCourse('ambiental')">Engenharia Ambiental</button>
+        <button class="course-tab" onclick="showCourse('producao')">Engenharia de Produção</button>
+        <button class="course-tab" onclick="showCourse('eletrica')">Engenharia Elétrica</button>
+        <button class="course-tab" onclick="showCourse('mecanica')">Engenharia Mecânica</button>
+        <button class="course-tab" onclick="showCourse('software')">Engenharia de Software</button>
+    </div>
+    
+    <div id="ambiental" class="course-content">
+        <h2 class="course-title">Engenharia Ambiental</h2>
+        <p class="course-description">Curso voltado à sustentabilidade e gestão ambiental. Inclui disciplinas como Tratamento de Águas, Impacto Ambiental, Legislação e mais.</p>
+        
+        <div class="course-highlights">
+            <div class="highlight-card">
+                <h3>Tratamento de Águas</h3>
+                <p>Estudo de tecnologias e processos para tratamento de efluentes e purificação de água para consumo.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>Impacto Ambiental</h3>
+                <p>Análise e prevenção de impactos ambientais causados por atividades humanas e industriais.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>Legislação Ambiental</h3>
+                <p>Conhecimento das leis e normas que regulamentam as atividades com potencial impacto ambiental.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="producao" class="course-content" style="display: none;">
+        <h2 class="course-title">Engenharia de Produção</h2>
+        <p class="course-description">Formação focada na otimização de processos produtivos, gestão da qualidade e eficiência operacional em diferentes segmentos industriais.</p>
+        
+        <div class="course-highlights">
+            <div class="highlight-card">
+                <h3>Gestão da Produção</h3>
+                <p>Estratégias para gerenciamento eficiente de sistemas produtivos e cadeias de suprimentos.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>Controle de Qualidade</h3>
+                <p>Ferramentas e metodologias para garantir a qualidade de produtos e serviços.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>Logística Industrial</h3>
+                <p>Planejamento e otimização de processos logísticos e cadeias de suprimentos.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="eletrica" class="course-content" style="display: none;">
+        <h2 class="course-title">Engenharia Elétrica</h2>
+        <p class="course-description">Curso que forma profissionais para atuar com sistemas elétricos, eletrônicos, de energia e automação.</p>
+        
+        <div class="course-highlights">
+            <div class="highlight-card">
+                <h3>Sistemas de Energia</h3>
+                <p>Estudo de geração, transmissão e distribuição de energia elétrica.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>Eletrônica</h3>
+                <p>Desenvolvimento e análise de circuitos e sistemas eletrônicos.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>Automação</h3>
+                <p>Implementação de sistemas automatizados e controle de processos industriais.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="mecanica" class="course-content" style="display: none;">
+        <h2 class="course-title">Engenharia Mecânica</h2>
+        <p class="course-description">Formação para projetar, construir e manter sistemas mecânicos, térmicos e de materiais.</p>
+        
+        <div class="course-highlights">
+            <div class="highlight-card">
+                <h3>Projetos Mecânicos</h3>
+                <p>Desenvolvimento de projetos de máquinas, equipamentos e sistemas mecânicos.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>Termodinâmica</h3>
+                <p>Estudo dos princípios de transferência de calor e energia em sistemas mecânicos.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>Materiais</h3>
+                <p>Análise e seleção de materiais para aplicações específicas em engenharia.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div id="software" class="course-content" style="display: none;">
+        <h2 class="course-title">Engenharia de Software</h2>
+        <p class="course-description">Curso focado no desenvolvimento de sistemas e aplicações, com ênfase em metodologias ágeis e boas práticas de programação.</p>
+        
+        <div class="course-highlights">
+            <div class="highlight-card">
+                <h3>Desenvolvimento Web</h3>
+                <p>Criação de aplicações e sistemas para internet utilizando tecnologias modernas.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>Banco de Dados</h3>
+                <p>Modelagem e implementação de sistemas de armazenamento e recuperação de dados.</p>
+            </div>
+            <div class="highlight-card">
+                <h3>Engenharia de Requisitos</h3>
+                <p>Técnicas para levantamento, análise e documentação de requisitos de software.</p>
+            </div>
+        </div>
+    </div>
+    
+    <h2 class="section-title">Feed FAMETRO</h2>
+    <div class="feed-container">
+        <div class="feed-item">
+            <div class="feed-image"></div>
+            <div class="feed-content">
+                <h3>Projeto de Sustentabilidade</h3>
+                <p>Alunos de Engenharia Ambiental desenvolvem soluções para captação de água da chuva no campus.</p>
+            </div>
+        </div>
+        <div class="feed-item">
+            <div class="feed-image"></div>
+            <div class="feed-content">
+                <h3>Visita Técnica</h3>
+                <p>Estudantes de Engenharia de Produção visitam indústria local para conhecer processos produtivos.</p>
+            </div>
+        </div>
+        <div class="feed-item">
+            <div class="feed-image"></div>
+            <div class="feed-content">
+                <h3>Palestra sobre Energias Renováveis</h3>
+                <p>Especialista apresenta as últimas tendências em energia solar para alunos de Engenharia Elétrica.</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="outdoor-banner">
+        <h2>Faça parte da FAMETRO</h2>
+        <p>Transforme seu futuro com uma formação de qualidade em engenharia. Inscrições abertas para o próximo semestre!</p>
+        <a href="#" class="btn">Saiba mais</a>
+    </div>
+    
+    <h2 class="section-title">Principais Eventos</h2>
+    <div class="events-section">
+        <div class="events-grid">
+            <div class="event-card">
+                <div class="event-image"></div>
+                <div class="event-content">
+                    <h3>Conecta</h3>
+                    <p class="event-date">15 de Junho de 2025</p>
+                    <p>Evento integrativo entre os cursos de Engenharia Ambiental e Mecânica com palestras e workshops.</p>
+                </div>
+            </div>
+            <div class="event-card">
+                <div class="event-image"></div>
+                <div class="event-content">
+                    <h3>Simpósio de Engenharia</h3>
+                    <p class="event-date">22 a 25 de Agosto de 2025</p>
+                    <p>Apresentação de trabalhos científicos desenvolvidos pelos alunos e professores da instituição.</p>
+                </div>
+            </div>
+            <div class="event-card">
+                <div class="event-image"></div>
+                <div class="event-content">
+                    <h3>Campanha de Doação de Sangue</h3>
+                    <p class="event-date">10 de Julho de 2025</p>
+                    <p>Ação social promovida pelos estudantes de engenharia em parceria com hemocentro local.</p>
+                </div>
+            </div>
+            <div class="event-card">
+                <div class="event-image"></div>
+                <div class="event-content">
+                    <h3>Ações Sociais</h3>
+                    <p class="event-date">Eventos Contínuos</p>
+                    <p>Programa de voluntariado e extensão universitária com foco em comunidades carentes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="forum-section">
+        <h2>Fórum para Alunos</h2>
+        <p>Espaço dedicado para discussões acadêmicas, dúvidas e compartilhamento de conhecimento entre os estudantes.</p>
+        
+        <div class="forum-preview">
+            <div class="forum-topic">
+                <div>
+                    <h3>Dúvidas sobre TCC de Engenharia Ambiental</h3>
+                    <p>Iniciado por João Silva · 15 respostas</p>
+                </div>
+                <span>Hoje</span>
+            </div>
+            <div class="forum-topic">
+                <div>
+                    <h3>Material de estudo para Cálculo III</h3>
+                    <p>Iniciado por Maria Oliveira · 8 respostas</p>
+                </div>
+                <span>Ontem</span>
+            </div>
+            <div class="forum-topic">
+                <div>
+                    <h3>Grupo de estudos para Resistência dos Materiais</h3>
+                    <p>Iniciado por Lucas Santos · 12 respostas</p>
+                </div>
+                <span>3 dias atrás</span>
+            </div>
+        </div>
+        
+        <div style="text-align: center; margin-top: 1.5rem;">
+            <a href="#" class="btn">Acessar o Fórum Completo</a>
+        </div>
+    </div>
+    
+    <div class="feedback-section">
+        <h2 class="section-title" style="margin-left: 0;">Feedback</h2>
+        <p style="margin-bottom: 1.5rem;">Sua opinião é muito importante para continuarmos melhorando nossos cursos e serviços.</p>
+        
+        <form class="feedback-form">
+            <div class="form-group">
+                <label for="name">Nome</label>
+                <input type="text" id="name" placeholder="Seu nome">
+            </div>
+            <div class="form-group">
+                <label for="course">Curso</label>
+                <select id="course">
+                    <option value="">Selecione seu curso</option>
+                    <option value="ambiental">Engenharia Ambiental</option>
+                    <option value="producao">Engenharia de Produção</option>
+                    <option value="eletrica">Engenharia Elétrica</option>
+                    <option value="mecanica">Engenharia Mecânica</option>
+                    <option value="software">Engenharia de Software</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="message">Mensagem</label>
+                <textarea id="message" rows="5" placeholder="Deixe seu comentário, sugestão ou crítica"></textarea>
+            </div>
+            <button type="submit" class="btn" style="background-color: var(--secondary-color); color: white;">Enviar Feedback</button>
+        </form>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>FAMETRO</h3>
+                <p>Formando profissionais de excelência em engenharia há mais de 20 anos.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Cursos</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Engenharia Ambiental</a></li>
+                    <li><a href="#">Engenharia de Produção</a></li>
+                    <li><a href="#">Engenharia Elétrica</a></li>
+                    <li><a href="#">Engenharia Mecânica</a></li>
+                    <li><a href="#">Engenharia de Software</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Links Úteis</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Portal do Aluno</a></li>
+                    <li><a href="#">Biblioteca Virtual</a></li>
+                    <li><a href="#">Calendário Acadêmico</a></li>
+                    <li><a href="#">Oportunidades de Estágio</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 FAMETRO - Todos os direitos reservados</p>
+        </div>
+    </footer>
+    
+    <script>
+        function showCourse(courseId) {
+            // Esconde todos os conteúdos de curso
+            const contents = document.querySelectorAll('.course-content');
+            contents.forEach(content => {
+                content.style.display = 'none';
+            });
+            
+            // Remove a classe 'active' de todas as abas
+            const tabs = document.querySelectorAll('.course-tab');
+            tabs.forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Mostra o conteúdo do curso selecionado
+            document.getElementById(courseId).style.display = 'block';
+            
+            // Adiciona a classe 'active' à aba selecionada
+            event.currentTarget.classList.add('active');
+        }
+    </script>
+</body>
+</html>

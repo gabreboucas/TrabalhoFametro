@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAMETRO - Sobre</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #dc2626;
+            --gradient: linear-gradient(90deg, #1e3a8a 0%, #dc2626 100%);
+            --light-bg: #f3f4f6;
+            --dark-text: #1f2937;
+            --light-text: #f9fafb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: var(--dark-text);
+        }
+        
+        header {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        
+        .page-banner {
+            background: var(--gradient);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .page-banner h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .page-banner p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .content-section {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .content-section p {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .image-container {
+            background-color: #e5e7eb;
+            height: 300px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-weight: bold;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--dark-text);
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .team-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .team-image {
+            width: 100%;
+            height: 250px;
+            background-color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-weight: bold;
+        }
+        
+        .team-details {
+            padding: 1.5rem;
+        }
+        
+        .team-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-position {
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+        
+        .timeline {
+            margin: 2rem 0;
+            position: relative;
+            max-width: 800px;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: white;
+            border: 4px solid var(--secondary-color);
+            top: 15px;
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::after {
+            right: -13px;
+        }
+        
+        .right::after {
+            left: -13px;
+        }
+        
+        .timeline-content {
+            padding: 20px 30px;
+            background-color: white;
+            position: relative;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .timeline-date {
+            font-weight: bold;
+            color: var(--secondary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        @media (max-width: 768px) {
+            .two-columns {
+                grid-template-columns: 1fr;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 18px;
+            }
+            
+            .left::after, .right::after {
+                left: 18px;
+            }
+            
+            .right {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">FAMETRO</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="cursos.html">Cursos</a></li>
+                <li><a href="eventos.html">Eventos</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="page-banner">
+        <h1>Sobre a FAMETRO</h1>
+        <p>Conheça nossa história, missão e valores que nos tornaram referência em educação superior em engenharia</p>
+    </div>
+    
+    <div class="content-section">
+        <h2 class="section-title">Nossa História</h2>
+        <div class="two-columns">
+            <div>
+                <p>A FAMETRO foi fundada em 2002 com o objetivo de oferecer educação superior de qualidade em diversas áreas do conhecimento, com foco especial nas engenharias. Desde o início, nosso compromisso tem sido formar profissionais altamente qualificados, éticos e preparados para os desafios do mercado de trabalho.</p>
+                <p>Ao longo de mais de duas décadas, a instituição cresceu significativamente, ampliando sua infraestrutura, corpo docente e ofertas de cursos. Hoje, a FAMETRO é reconhecida como uma das principais instituições de ensino superior da região, destacando-se pela excelência acadêmica e pelo forte vínculo com o setor produtivo.</p>
+                <p>Nossa trajetória é marcada por constante inovação pedagógica, investimento em laboratórios e tecnologias de ponta, e pelo desenvolvimento de projetos de extensão que beneficiam a comunidade local. Acreditamos que a formação técnica de qualidade deve andar lado a lado com o desenvolvimento humano e a consciência social.</p>
+            </div>
+            <div class="image-container">
+                Imagem do Campus FAMETRO
+            </div>
+        </div>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number">20+</div>
+                <div class="stat-label">Anos de Tradição</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">5.000+</div>
+                <div class="stat-label">Alunos Formados</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">250+</div>
+                <div class="stat-label">Professores Especialistas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">95%</div>
+                <div class="stat-label">Taxa de Empregabilidade</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="content-section" style="background-color: var(--light-bg);">
+        <h2 class="section-title">Missão, Visão e Valores</h2>
+        
+        <div class="two-columns">
+            <div>
+                <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Missão</h3>
+                <p>Formar profissionais de excelência em engenharia, comprometidos com a inovação, sustentabilidade e desenvolvimento social, por meio de uma educação de qualidade que integra teoria e prática.</p>
+                
+                <h3 style="color: var(--primary-color); margin: 1.5rem 0 1rem 0;">Visão</h3>
+                <p>Ser reconhecida como instituição de referência na formação de engenheiros, destacando-se pela excelência acadêmica, inovação tecnológica e responsabilidade socioambiental.</p>
+                
+                <h3 style="color: var(--primary-color); margin: 1.5rem 0 1rem 0;">Valores</h3>
+                <ul style="list-style-position: inside; margin-left: 1rem;">
+                    <li style="margin-bottom: 0.5rem;">Excelência acadêmica</li>
+                    <li style="margin-bottom: 0.5rem;">Ética e responsabilidade</li>
+                    <li style="margin-bottom: 0.5rem;">Inovação e criatividade</li>
+                    <li style="margin-bottom: 0.5rem;">Sustentabilidade</li>
+                    <li style="margin-bottom: 0.5rem;">Inclusão e diversidade</li>
+                    <li>Compromisso social</li>
+                </ul>
+            </div>
+            <div class="image-container">
+                Imagem Institucional
+            </div>
+        </div>
+    </div>
+    
+    <div class="content-section">
+        <h2 class="section-title">Nossa Evolução</h2>
+        
+        <div class="timeline">
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <div class="timeline-date">2002</div>
+                    <h3>Fundação da FAMETRO</h3>
+                    <p>Inauguração da instituição com os primeiros cursos de engenharia.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <div class="timeline-date">2007</div>
+                    <h3>Expansão do Campus</h3>
+                    <p>Ampliação da infraestrutura e inauguração de novos laboratórios.</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <div class="timeline-date">2012</div>
+                    <h3>Reconhecimento MEC</h3>
+                    <p>Conquista da nota máxima em avaliação do Ministério da Educação.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <div class="timeline-date">2016</div>
+                    <h3>Centro de Inovação</h3>
+                    <p>Criação do Centro de Inovação e Tecnologia para projetos aplicados.</p>
+                </div>
+            </div>
+            <div class="timeline-item left">
+                <div class="timeline-content">
+                    <div class="timeline-date">2020</div>
+                    <h3>Ensino Híbrido</h3>
+                    <p>Implementação da plataforma de ensino híbrido e laboratórios virtuais.</p>
+                </div>
+            </div>
+            <div class="timeline-item right">
+                <div class="timeline-content">
+                    <div class="timeline-date">2025</div>
+                    <h3>FAMETRO Hoje</h3>
+                    <p>Consolidação como centro de excelência em engenharia com reconhecimento nacional.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="content-section" style="background-color: var(--light-bg);">
+        <h2 class="section-title">Nosso Time</h2>
+        <p>Conheça a equipe de liderança que faz a FAMETRO ser uma instituição de excelência em engenharia.</p>
+        
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-image">Foto do Profissional</div>
+                <div class="team-details">
+                    <div class="team-name">Dr. Ricardo Oliveira</div>
+                    <div class="team-position">Reitor</div>
+                    <p>Doutor em Engenharia, com mais de 25 anos de experiência acadêmica e profissional.</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-image">Foto do Profissional</div>
+                <div class="team-details">
+                    <div class="team-name">Dra. Mariana Costa</div>
+                    <div class="team-position">Diretora Acadêmica</div>
+                    <p>Especialista em gestão educacional com foco em inovação e metodologias ativas.</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-image">Foto do Profissional</div>
+                <div class="team-details">
+                    <div class="team-name">Prof. Carlos Santos</div>
+                    <div class="team-position">Coordenador de Engenharia</div>
+                    <p>Mestre em Engenharia Mecânica com ampla experiência na indústria e docência.</p>
+                </div>
+            </div>
+            <div class="team-card">
+                <div class="team-image">Foto do Profissional</div>
+                <div class="team-details">
+                    <div class="team-name">Dra. Patrícia Lima</div>
+                    <div class="team-position">Coordenadora de Pesquisa</div>
+                    <p>Pesquisadora com diversos projetos publicados em revistas internacionais.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>FAMETRO</h3>
+                <p>Formando profissionais de excelência em engenharia há mais de 20 anos.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Cursos</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Engenharia Ambiental</a></li>
+                    <li><a href="#">Engenharia de Produção</a></li>
+                    <li><a href="#">Engenharia Elétrica</a></li>
+                    <li><a href="#">Engenharia Mecânica</a></li>
+                    <li><a href="#">Engenharia de Software</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Links Úteis</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Portal do Aluno</a></li>
+                    <li><a href="#">Biblioteca Virtual</a></li>
+                    <li><a href="#">Calendário Acadêmico</a></li>
+                    <li><a href="#">Oportunidades de Estágio</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2025 FAMETRO - Todos os direitos reservados</p>
+        </div>
+    </footer>
+</body>
+</html>

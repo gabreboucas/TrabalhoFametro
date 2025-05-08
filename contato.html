@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAMETRO - Contato</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #dc2626;
+            --gradient: linear-gradient(90deg, #1e3a8a 0%, #dc2626 100%);
+            --light-bg: #f3f4f6;
+            --dark-text: #1f2937;
+            --light-text: #f9fafb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: var(--dark-text);
+        }
+        
+        header {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        
+        .page-banner {
+            background: var(--gradient);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        
+        .page-banner h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .page-banner p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .content-section {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .contact-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .btn:hover {
+            background-color: #b91c1c;
+            transform: translateY(-2px);
+        }
+        
+        .contact-info {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .contact-info h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .info-item {
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-item h4 {
+            margin-bottom: 0.5rem;
+            color: #f3f4f6;
+        }
+        
+        .info-item p {
+            margin-bottom: 0.25rem;
+        }
+        
+        .map-container {
+            height: 400px;
+            background-color: #e5e7eb;
+            border-radius: 8px;
+            margin-top: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-weight: bold;
+        }
+        
+        .faq-section {
+            background-color: var(--light-bg);
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .accordion {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 1rem;
+        }
+        
+        .accordion-header {
+            padding: 1.5rem;
+            cursor: pointer;
+            background-color: var(--light-bg);
+            font-weight: 500;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .accordion-header:hover {
+            background-color: #e5e7eb;
+        }
+        
+        .accordion-content {
+            padding: 1.5rem;
+            display: none;
+        }
+        
+        .accordion-content p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .accordion-content p:last-child {
+            margin-bottom: 0;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="logo">FAMETRO</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="cursos.html">Cursos</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="page-banner">
+        <h1>Entre em Contato</h1>
+        <p>Tem alguma dúvida? Preencha o formulário ou veja abaixo como falar conosco.</p>
+    </section>
+
+    <section class="content-section">
+        <h2 class="section-title">Fale Conosco</h2>
+        <div class="contact-grid">
+            <div class="contact-form">
+                <form action="#" method="post">
+                    <div class="form-group">
+                        <label for="name">Nome</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Assunto</label>
+                        <input type="text" id="subject" name="subject" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Mensagem</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Enviar</button>
+                </form>
+            </div>
+            <div class="contact-info">
+                <h3>Informações de Contato</h3>
+                <div class="info-item">
+                    <h4>Endereço</h4>
+                    <p>Rua, 123 - Centro</p>
+                    <p>Manaus - AM, 69000-000</p>
+                </div>
+                <div class="info-item">
+                    <h4>Telefone</h4>
+                    <p>(92) 99999-9999</p>
+                </div>
+                <div class="info-item">
+                    <h4>E-mail</h4>
+                    <p>contato@fametro.edu.br</p>
+                </div>
+            </div>
+        </div>
+        <div class="map-container">
+            Mapa Google Aqui
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="faq-container">
+            <h2 class="section-title">Perguntas Frequentes</h2>
+            <div class="accordion">
+                <div class="accordion-header">Como posso me inscrever?</div>
+                <div class="accordion-content"><p>Você pode se inscrever através do nosso site na seção de inscrições.</p></div>
+            </div>
+            <div class="accordion">
+                <div class="accordion-header">Quais cursos são oferecidos?</div>
+                <div class="accordion-content"><p>Oferecemos uma variedade de cursos em diversas áreas. Veja mais na página de cursos.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>Sobre a FAMETRO</h3>
+                <p>Instituição de ensino superior com tradição e compromisso com a qualidade.</p>
+            </div>
+            <div class="footer-column">
+                <h3>Links Úteis</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Portal do Aluno</a></li>
+                    <li><a href="#">Biblioteca</a></li>
+                    <li><a href="#">Trabalhe Conosco</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contato</h3>
+                <p>Rua Exemplo, 123 - Centro<br>Manaus - AM<br>(92) 99999-9999</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 FAMETRO. Todos os direitos reservados.
+        </div>
+    </footer>
+</body>
+</html>

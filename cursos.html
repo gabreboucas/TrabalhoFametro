@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos - FAMETRO</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #dc2626;
+            --gradient: linear-gradient(90deg, #1e3a8a 0%, #dc2626 100%);
+            --light-bg: #f3f4f6;
+            --dark-text: #1f2937;
+            --light-text: #f9fafb;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: var(--dark-text);
+        }
+        
+        header {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        
+        .page-banner {
+            background: url('/api/placeholder/1200/300') center/cover;
+            height: 200px;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .page-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        
+        .page-banner h1 {
+            color: white;
+            font-size: 2.5rem;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .section-title {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .course-filter {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .filter-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        
+        .filter-options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .filter-button {
+            padding: 0.5rem 1rem;
+            background-color: var(--light-bg);
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .filter-button:hover {
+            background-color: #e5e7eb;
+        }
+        
+        .filter-button.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .courses-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+        
+        .course-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .course-image {
+            height: 200px;
+            background-color: #e5e7eb;
+            background-size: cover;
+            background-position: center;
+        }
+        
+        .course-content {
+            padding: 1.5rem;
+        }
+        
+        .course-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: var(--primary-color);
+        }
+        
+        .course-details {
+            margin-bottom: 1rem;
+        }
+        
+        .course-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .detail-icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.8rem;
+        }
+        
+        .course-description {
+            margin-bottom: 1.5rem;
+            color: #4b5563;
+            line-height: 1.6;
+        }
+        
+        .course-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .btn-secondary {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            border: 1px solid #e5e7eb;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .course-details-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 3rem;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #e5e7eb;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tab-button {
+            padding: 0.75rem 1.5rem;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        
+        .tab-button.active {
+            color: var(--primary-color);
+            border-bottom-color: var(--primary-color);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .curriculum-item {
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .curriculum-item:last-child {
+            border-bottom: none;
+        }
+        
+        .curriculum-semester {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .curriculum-subjects {
+            padding-left: 1.5rem;
+        }
+        
+        .curriculum-subject {
+            margin-bottom: 0.5rem;
+        }
+        
+        .instructors-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .instructor-card {
+            background-color: var(--light-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .instructor-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            background-color: #e5e7eb;
+        }
+        
+        .instructor-name {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+        
+        .instructor-title {
+            color: #4b5563;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+        
+        .facility-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .facility-item {
+            display: flex;
+            align-items: center;
+            background-color: var(--light-bg);
+            padding: 1rem;
+            border-radius: 8px;
+        }
+        
+        .facility-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+            display: inline-block;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .footer-links a:hover {
+            text-decoration: underline;
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            .courses-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .course-buttons {
+                flex-direction: column;
+            }
+            
+            .tabs {
+                flex-direction: column;
+                border-bottom: none;
+            }
+            
+            .tab-button {
+                border-bottom: 1px solid #e5e7eb;
+            }
+            
+            .tab-button.active {
+                border-bottom: 1px solid var(--primary-color);
+            }
+            
+            .instructors-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .facility-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">FAMETRO</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="cursos.html">Cursos</a></li>
+                <li><a href="eventos.html">Eventos</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="page-banner">
+        <h1>Nossos Cursos de Engenharia</h1>
+    </div>
+
+    <div class="container">
+        <div class="course-filter">
+            <h3 class="filter-title">Filtrar por área:</h3>
+            <div class="filter-options">
+                <button class="filter-button active" onclick="filterCourses('todos')">Todos</button>
+                <button class="filter-button" onclick="filterCourses('ambiental')">Ambiental</button>
+                <button class="filter-button" onclick="filterCourses('producao')">Produção</button>
+                <button class="filter-button" onclick="filterCourses('eletrica')">Elétrica</button>
+                <button class="filter-button" onclick="filterCourses('mecanica')">Mecânica</button>
+                <button class="filter-button" onclick="filterCourses('software')">Software</button>
+            </div>
+        </div>
+
+        <div class="courses-grid">
+            <div class="course-card" data-category="ambiental">
+                <div class="course-image" style="background-image: url('/api/placeholder/400/200');"></div>
+                <div class="course-content">
+                    <h3 class="course-name">Engenharia Ambiental</h3>
+                    <div class="course-details">
+                        <div class="course-detail">
+                            <span class="detail-icon">T</span>
+                            <span>Duração: 5 anos (10 semestres)</span>
+                        </div>
+                        <div class="course-detail">
+                            <span class="detail-icon">H</span>
+                            <span>Carga horária: 3.600 horas</span>
+                        </div>
+                        <div class="course-detail">
+                            <span class="detail-icon">T</span>
+                            <span>Turno: Matutino e Noturno</span>
+                        </div>
+                    </div>
+                    <p class="course-description">Curso voltado à sustentabilidade e gestão ambiental. Forma profissionais capacitados para atuar em áreas como tratamento de resíduos, gestão ambiental, auditoria e recuperação de áreas degradadas.</p>
+                    <div class="course-buttons">
+                        <a href="#engenharia-ambiental" class="btn btn-primary" onclick="showCourseDetails('ambiental')">Ver detalhes</a>
+                        <a href="#" class="btn btn-secondary">Inscreva-se</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card" data-category="producao">
+                <div class="course-image" style="background-image: url('/api/placeholder/400/200');"></div>
+                <div class="course-content">
+                    <h3 class="course-name">Engenharia de Produção</h3>
+                    <div class="course-details">
+                        <div class="course-detail">
+                            <span class="detail-icon">T</span>
+                            <span>Duração: 5 anos (10 semestres)</span>
+                        </div>
+                        <div class="course-detail">
+                            <span class="detail-icon">H</span>
+                            <span>Carga horária: 3.800 horas</span>
+                        </div>
+                        <div class="course-detail">
+                            <span class="detail-icon">T</span>
+                            <span>Turno: Matutino e Noturno</span>
+                        </div>
+                    </div>
+                    <p class="course-description">Formação focada na otimização de processos produtivos, gestão da qualidade e eficiência operacional. Prepara profissionais para gerenciar processos industriais e empresariais.</p>
+                    <div class="course-buttons">
+                        <a href="#engenharia-producao" class="btn btn-primary" onclick="showCourseDetails('producao')">Ver detalhes</a>
+                        <a href="#" class="btn btn-secondary">Inscreva-se</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card" data-category="eletrica">
+                <div class="course-image" style="background-image: url('/api/placeholder/400/200');"></div>
+                <div class="course-content">
+                    <h3 class="course-name">Engenharia Elétrica</h3>
+                    <div class="course-details">
+                        <div class="course-detail">
+                            <span class="detail-icon">T</span>
+                            <span>Duração: 5 anos (10 semestres)</span>
+                        </div>
+                        <div class="course-detail">
+                            <span class="detail-icon">H</span>
+                            <span>Carga horária: 3.750 horas</span>
+                        </div>
+                        <div class="course-detail">
+                            <span class="detail-icon">T</span>
+                            <span>Turno: Matutino e Noturno</span>
+                        </div>
+                    </div>
+                    <p class="course-description">Curso que forma profissionais para atuar com sistemas elétricos, eletrônicos, de energia e automação. Prepara engenheiros para projetar e implementar sistemas elétricos.</p>
+                    <div class="course-buttons">
+                        <a href="#engenharia-eletrica" class="btn btn-primary" onclick="showCourseDetails('eletrica')">Ver detalhes</a>
+                        <a href="#" class="btn btn-secondary">Inscreva-se</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card" data-category="mecanica">
+                <div class="course-image" style="background-image: url('/api/placeholder/400/200');"></div>
+                <div class="course-content">
+                    <h3 class="course-name">Engenharia Mecânica</h3>
+                    <div class="course-details">
+                        <div class="course-detail">
+                            <span class="detail-icon">T</span>
+                            <span>Duração: 5 anos (10 semestres)</span>
+                        </div>
+                        <div class="course-detail">
+                            <span class="detail-icon">H</span>
+                            <span>Carga horária: 3.800 horas</span>
+                        </div>
+                        <div class="course-detail">
+                            <span class="detail-icon">T</span>
+                            <span>Turno: Matutino e Noturno</span>
+                        </div>
+                    </div>
+                    <p class="course-description">Formação para projetar, construir e manter sistemas mecânicos, térmicos e de materiais. Prepara engenheiros para trabalhar com equipamentos e maquinários industriais.</p>
+                    <div class="course-buttons">
+                        <a href="#engenharia-mecanica" class="btn btn-primary" onclick="showCourseDetails('mecanica')">Ver detalhes</a>
+                        <a href="#" class="btn btn-secondary">Inscreva-se</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card" data-category="software">
+                <div class="course-image" style="background-image: url('/api/placeholder/400/200');"></div>
+                <div class="course-content">
+                    <h3 class="course-name">Engenharia de Software</h3>
+                    <div class="course-details">
+                        <div class="course-detail">
+                            <span class="detail-icon">T</span>
+                            <span>Duração: 4 anos (8 semestres)</span>
+                        </div>
+                        <div class="course-detail">
+                            <span class="detail-icon">H</span>
+                            <span>Carga horária: 3.200 horas</span>
+                        </div>
+                        <div class="course-detail">
+                            <span class="detail-icon">T</span>
+                            <span>Turno: Matutino e Noturno</span>
+                        </div>
+                    </div>
+                    <p class="course-description">Curso focado no desenvolvimento de sistemas e aplicações, com ênfase em metodologias ágeis e boas práticas de programação. Forma profissionais para o mercado de TI.</p>
+                    <div class="course-buttons">
+                        <a href="#engenharia-software" class="btn btn-primary" onclick="showCourseDetails('software')">Ver detalhes</a>
+                        <a href="#" class="btn btn-secondary">Inscreva-se</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
