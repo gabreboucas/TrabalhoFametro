@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fórum - FAMETRO</title>
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #dc2626;
+            --gradient: linear-gradient(90deg, #1e3a8a 0%, #dc2626 100%);
+            --light-bg: #f3f4f6;
+            --dark-text: #1f2937;
+            --light-text: #f9fafb;
+            --success-color: #059669;
+            --warning-color: #d97706;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f8fafc;
+            color: var(--dark-text);
+        }
+        
+        header {
+            background: var(--gradient);
+            color: white;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        
+        .page-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+        }
+        
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .forum-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .category-filter {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #e5e7eb;
+            background-color: white;
+            color: var(--dark-text);
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .filter-btn:hover {
+            background-color: var(--light-bg);
+        }
+        
+        .filter-btn.active:hover {
+            background-color: #1e40af;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.2s;
+        }
+        
+        .btn:hover {
+            background-color: #b91c1c;
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+        }
+        
+        .btn-primary:hover {
+            background-color: #1e40af;
+        }
+        
+        .search-bar {
+            display: flex;
+            max-width: 400px;
+            margin-bottom: 1rem;
+        }
+        
+        .search-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-right: none;
+            border-radius: 4px 0 0 4px;
+            font-size: 1rem;
+        }
+        
+        .search-btn {
+            padding: 0.75rem 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+        
+        .forum-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .stat-label {
+            color: #6b7280;
+            margin-top: 0.5rem;
+        }
+        
+        .forum-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 2rem;
+        }
+        
+        .topics-list {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .topic-item {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e7eb;
+            transition: background-color 0.2s;
+        }
+        
+        .topic-item:hover {
+            background-color: #f9fafb;
+        }
+        
+        .topic-item:last-child {
+            border-bottom: none;
+        }
+        
+        .topic-header {
+            display: flex;
+            justify-content: between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+        
+        .topic-title {
+            flex: 1;
+            margin: 0;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+        
+        .topic-title:hover {
+            text-decoration: underline;
+        }
+        
+        .topic-category {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            margin-left: 1rem;
+        }
+        
+        .topic-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.875rem;
+            color: #6b7280;
+        }
+        
+        .topic-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .topic-stats {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .sidebar {
+            display: grid;
+            gap: 2rem;
+        }
+        
+        .sidebar-section {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .sidebar-section h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 0.5rem;
+        }
+        
+        .recent-activity {
+            list-style: none;
+        }
+        
+        .recent-activity li {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 0.875rem;
+        }
+        
+        .recent-activity li:last-child {
+            border-bottom: none;
+        }
+        
+        .online-users {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .user-badge {
+            background-color: var(--success-color);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-header h2 {
+            color: var(--primary-color);
+        }
+        
+        .close {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .close:hover {
+            color: var(--dark-text);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+        
+        .btn-secondary {
+            background-color: #6b7280;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #4b5563;
+        }
+        
+        .pinned-topic {
+            background-color: #fef3c7;
+            border-left: 4px solid var(--warning-color);
+        }
+        
+        .pinned-icon {
+            color: var(--warning-color);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        .solved-topic {
+            background-color: #d1fae5;
+            border-left: 4px solid var(--success-color);
+        }
+        
+        .solved-icon {
+            color: var(--success-color);
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .forum-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .forum-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .category-filter {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="index.html" class="logo">FAMETRO</a>
+        <nav>
+            <ul>
+                <li><a href="index.html">Início</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+                <li><a href="cursos.html">Cursos</a></li>
+                <li><a href="eventos.html">Eventos</a></li>
+                <li><a href="forum.html">Fórum</a></li>
+                <li><a href="contato.html">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="page-header">
+        <h1>Fórum FAMETRO</h1>
+        <p>Espaço para discussões acadêmicas, dúvidas e compartilhamento de conhecimento</p>
+    </div>
+    
+    <div class="container">
+        <div class="forum-stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalTopics">127</div>
+                <div class="stat-label">Tópicos</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalPosts">584</div>
+                <div class="stat-label">Posts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalUsers">342</div>
+                <div class="stat-label">Usuários</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="onlineUsers">23</div>
+                <div class="stat-label">Online Agora</div>
+            </div>
+        </div>
+        
+        <div class="forum-controls">
+            <div>
+                <div class="search-bar">
+                    <input type="text" class="search-input" placeholder="Buscar tópicos..." id="searchInput">
+                    <button class="search-btn" onclick="searchTopics()">🔍</button>
+                </div>
+                <div class="category-filter">
+                    <button class="filter-btn active" onclick="filterByCategory('all')">Todos</button>
+                    <button class="filter-btn" onclick="filterByCategory('duvidas')">Dúvidas</button>
+                    <button class="filter-btn" onclick="filterByCategory('projetos')">Projetos</button>
+                    <button class="filter-btn" onclick="filterByCategory('estudos')">Estudos</button>
+                    <button class="filter-btn" onclick="filterByCategory('eventos')">Eventos</button>
+                    <button class="filter-btn" onclick="filterByCategory('geral')">Geral</button>
+                </div>
+            </div>
+            <button class="btn" onclick="openNewTopicModal()">+ Novo Tópico</button>
+        </div>
+        
+        <div class="forum-content">
+            <div class="topics-list" id="topicsList">
+                <!-- Tópicos serão inseridos aqui via JavaScript -->
+            </div>
+            
+            <div class="sidebar">
+                <div class="sidebar-section">
+                    <h3>Usuários Online</h3>
+                    <div class="online-users">
+                        <span class="user-badge">João Silva</span>
+                        <span class="user-badge">Maria Santos</span>
+                        <span class="user-badge">Carlos Lima</span>
+                        <span class="user-badge">Ana Costa</span>
+                        <span class="user-badge">+19 outros</span>
+                    </div>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3>Atividade Recente</h3>
+                    <ul class="recent-activity">
+                        <li>João Silva respondeu em "Dúvidas sobre TCC"</li>
+                        <li>Maria Santos criou "Material de Cálculo III"</li>
+                        <li>Carlos Lima curtiu uma resposta</li>
+                        <li>Ana Costa marcou tópico como resolvido</li>
+                        <li>Prof. Eduardo postou em "Avisos Gerais"</li>
+                    </ul>
+                </div>
+                
+                <div class="sidebar-section">
+                    <h3>Categorias Populares</h3>
+                    <ul class="recent-activity">
+                        <li>📚 Dúvidas (45 tópicos)</li>
+                        <li>🔬 Projetos (32 tópicos)</li>
+                        <li>📖 Estudos (28 tópicos)</li>
+                        <li>🎓 TCC (15 tópicos)</li>
+                        <li>💼 Estágios (12 tópicos)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal para novo tópico -->
+    <div id="newTopicModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Criar Novo Tópico</h2>
+                <span class="close" onclick="closeNewTopicModal()">&times;</span>
+            </div>
+            <form id="newTopicForm">
+                <div class="form-group">
+                    <label for="topicTitle">Título</label>
+                    <input type="text" id="topicTitle" required placeholder="Digite o título do tópico">
+                </div>
+                <div class="form-group">
+                    <label for="topicCategory">Categoria</label>
+                    <select id="topicCategory" required>
+                        <option value="">Selecione uma categoria</option>
+                        <option value="duvidas">Dúvidas</option>
+                        <option value="projetos">Projetos</option>
+                        <option value="estudos">Estudos</option>
+                        <option value="eventos">Eventos</option>
+                        <option value="geral">Geral</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="topicContent">Conteúdo</label>
+                    <textarea id="topicContent" required placeholder="Descreva sua dúvida, compartilhe seu projeto ou inicie uma discussão..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="closeNewTopicModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Publicar Tópico</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2025 FAMETRO - Todos os direitos reservados</p>
+    </footer>
+    
+    <script>
+        // Dados de exemplo para os tópicos
+        let topics = [
+            {
+                id: 1,
+                title: "Dúvidas sobre metodologia para TCC de Engenharia Ambiental",
+                category: "duvidas",
+                author: "João Silva",
+                authorInitials: "JS",
+                content: "Estou tendo dificuldades para definir a metodologia do meu TCC sobre tratamento de efluentes. Alguém pode me ajudar?",
+                replies: 15,
+                views: 234,
+                lastActivity: "2 horas atrás",
+                isPinned: false,
+                isSolved: false,
+                date: new Date('2024-12-20')
+            },
+            {
+                id: 2,
+                title: "Material de estudo para Cálculo III - Compartilhamento",
+                category: "estudos",
+                author: "Maria Oliveira",
+                authorInitials: "MO",
+                content: "Pessoal, encontrei ótimos materiais para Cálculo III. Vou compartilhar aqui para ajudar nos estudos.",
+                replies: 8,
+                views: 156,
+                lastActivity: "1 dia atrás",
+                isPinned: true,
+                isSolved: false,
+                date: new Date('2024-12-19')
+            },
+            {
+                id: 3,
+                title: "Grupo de estudos para Resistência dos Materiais",
+                category: "estudos",
+                author: "Lucas Santos",
+                authorInitials: "LS",
+                content: "Alguém interessado em formar um grupo de estudos para a disciplina de Resistência dos Materiais?",
+                replies: 12,
+                views: 89,
+                lastActivity: "3 dias atrás",
+                isPinned: false,
+                isSolved: true,
+                date: new Date('2024-12-17')
+            },
+            {
+                id: 4,
+                title: "Projeto Arduino para monitoramento ambiental",
+                category: "projetos",
+                author: "Ana Costa",
+                authorInitials: "AC",
+                content: "Desenvolvi um projeto usando Arduino para monitorar qualidade do ar. Gostaria de compartilhar e receber feedback.",
+                replies: 23,
+                views: 301,
+                lastActivity: "5 horas atrás",
+                isPinned: false,
+                isSolved: false,
+                date: new Date('2024-12-20')
+            },
+            {
+                id: 5,
+                title: "Dúvida sobre estágio obrigatório",
+                category: "duvidas",
+                author: "Pedro Lima",
+                authorInitials: "PL",
+                content: "Tenho dúvidas sobre os requisitos para o estágio obrigatório. Quantas horas são necessárias?",
+                replies: 6,
+                views: 78,
+                lastActivity: "1 dia atrás",
+                isPinned: false,
+                isSolved: true,
+                date: new Date('2024-12-19')
+            },
+            {
+                id: 6,
+                title: "Palestra sobre Energias Renováveis - Próxima semana",
+                category: "eventos",
+                author: "Prof. Eduardo",
+                authorInitials: "PE",
+                content: "Informo que na próxima semana teremos palestra sobre energias renováveis. Não percam!",
+                replies: 4,
+                views: 167,
+                lastActivity: "6 horas atrás",
+                isPinned: true,
+                isSolved: false,
+                date: new Date('2024-12-20')
+            }
+        ];
+        
+        let currentFilter = 'all';
+        
+        function renderTopics(topicsToRender = topics) {
+            const topicsList = document.getElementById('topicsList');
+            topicsList.innerHTML = '';
+            
+            topicsToRender.forEach(topic => {
+                const topicElement = document.createElement('div');
+                topicElement.className = 'topic-item';
+                
+                if (topic.isPinned) {
+                    topicElement.classList.add('pinned-topic');
+                }
+                if (topic.isSolved) {
+                    topicElement.classList.add('solved-topic');
+                }
+                
+                const categoryColors = {
+                    'duvidas': '#dc2626',
+                    'projetos': '#059669',
+                    'estudos': '#d97706',
+                    'eventos': '#7c3aed',
+                    'geral': '#6b7280'
+                };
+                
+                topicElement.innerHTML = `
+                    <div class="topic-header">
+                        <h3 class="topic-title" onclick="viewTopic(${topic.id})">
+                            ${topic.isPinned ? '<span class="pinned-icon">📌</span>' : ''}
+                            ${topic.isSolved ? '<span class="solved-icon">✅</span>' : ''}
+                            ${topic.title}
+                        </h3>
+                        <span class="topic-category" style="background-color: ${categoryColors[topic.category]}20; color: ${categoryColors[topic.category]}">
+                            ${topic.category.charAt(0).toUpperCase() + topic.category.slice(1)}
+                        </span>
+                    </div>
+                    <div class="topic-meta">
+                        <div class="topic-author">
+                            <div class="author-avatar">${topic.authorInitials}</div>
+                            <span>por ${topic.author}</span>
+                        </div>
+                        <div class="topic-stats">
+                            <span>💬 ${topic.replies} respostas</span>
+                            <span>👁️ ${topic.views} visualizações</span>
+                            <span>${topic.lastActivity}</span>
+                        </div>
+                    </div>
+                `;
+                
+                topicsList.appendChild(topicElement);
+            });
+        }
+        
+        function filterByCategory(category) {
+            currentFilter = category;
+            
+            // Atualiza botões de filtro
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Filtra tópicos
+            let filteredTopics = topics;
+            if (category !== 'all') {
+                filteredTopics = topics.filter(topic => topic.category === category);
+            }
+            
+            renderTopics(filteredTopics);
+        }
+        
+        function searchTopics() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            
+            let filteredTopics = topics.filter(topic => 
+                topic.title.toLowerCase().includes(searchTerm) ||
+                topic.content.toLowerCase().includes(searchTerm) ||
+                topic.author.toLowerCase().includes(searchTerm)
+            );
+            
+            if (currentFilter !== 'all') {
+                filteredTopics = filteredTopics.filter(topic => topic.category === currentFilter);
+            }
+            
+            renderTopics(filteredTopics);
+        }
+        
+        function openNewTopicModal() {
+            document.getElementById('newTopicModal').style.display = 'block';
+        }
+        
+        function closeNewTopicModal() {
+            document.getElementById('newTopicModal').style.display = 'none';
+            document.getElementById('newTopicForm').reset();
+        }
+        
+        function viewTopic(topicId) {
+            const topic = topics.find(t => t.id === topicId);
+            if (topic) {
+                alert(`Visualizando tópico: "${topic.title}"\n\nConteúdo: ${topic.content}\n\nAutor: ${topic.author}\nRespostas: ${topic.replies}`);
+                // Aqui você implementaria a navegação para a página do tópico
+            }
+        }
+        
+        // Manipulador do formulário de novo tópico
+        document.getElementById('newTopicForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const title = document.getElementById('topicTitle').value;
+            const category = document.getElementById('topicCategory').value;
+            const content = document.getElementById('topicContent').value;
+            
+            // Simulando autor logado
+            const authors = ['Você', 'Usuário Teste', 'Estudante FAMETRO'];
+            const randomAuthor = authors[Math.floor(Math.random() * authors.length)];
+            const authorInitials = randomAuthor.split(' ').map(name => name[0]).join('');
+            
+            const newTopic = {
+                id: topics.length + 1,
+                title: title,
+                category: category,
+                author: randomAuthor,
+                authorInitials: authorInitials,
+                content: content,
+                replies: 0,
+                views: 1,
+                lastActivity: "Agora",
+                isPinned: false,
+                isSolved: false,
+                date: new Date()
+            };
+            
+            topics.unshift(newTopic); // Adiciona no início da lista
+            
+            // Atualiza estatísticas
+            document.getElementById('totalTopics').textContent = topics.length;
+            document.getElementById('totalPosts').textContent = parseInt(document.getElementById('totalPosts').textContent) + 1;
+            
+            closeNewTopicModal();
+            renderTopics();
+            
+            alert('Tópico criado com sucesso!');
+        });
+        
+        // Event listeners
+        document.getElementById('searchInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                searchTopics();
+            }
+        });
+        
+        window.onclick = function(event) {
+            const modal = document.getElementById('newTopicModal');
+            if (event.target === modal) {
+                closeNewTopicModal();
+            }
+        };
+        
+        // Inicializa a página
+        document.addEventListener('DOMContentLoaded', function() {
+            renderTopics();
+        });
+    </script>
+</body>
+</html>
